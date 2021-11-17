@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-mou <ahel-mou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ahel-mou <ahel-mou@student-1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 17:34:08 by ahel-mou          #+#    #+#             */
-/*   Updated: 2021/11/16 11:56:32 by ahel-mou         ###   ########.fr       */
+/*   Updated: 2021/11/16 14:33:44 by ahel-mou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char    *get_next_line(int  fd)
 		tmp_arr[read_f] = '\0';
 		printf("READ VAL = %zu\nSTR_IMPORTED =\n%s", read_f, tmp_arr);
 		
-		printf("\n static arr  = %s", ft_strjoin(stc_arr, tmp_arr));
+		//printf("\n static arr  = %s", ft_strjoin(stc_arr, tmp_arr));
 	}
 	return (NULL);
 }
