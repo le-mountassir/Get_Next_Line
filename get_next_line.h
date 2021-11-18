@@ -5,32 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-mou <ahel-mou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 17:34:15 by ahel-mou          #+#    #+#             */
-/*   Updated: 2021/11/16 11:35:57 by ahel-mou         ###   ########.fr       */
+/*   Created: 2021/11/17 13:45:24 by ahel-mou          #+#    #+#             */
+/*   Updated: 2021/11/17 15:37:30 by ahel-mou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+
+#ifndef GET_NEXT_LINE
+#define GET_NEXT_LINE
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1000
+# define BUFFER_SIZE 100
 #endif
 
-#include<sys/types.h>
-#include<sys/stat.h>
-#include <fcntl.h>  
-# include <string.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+//open
+#include <sys/stat.h>
+#include <fcntl.h>
 
-size_t		ft_strlen(char *cara);
-int			line_len(char *cara);
-char		*ft_strjoin(char *s1, char *s2);
-char		*line_mallocater(char *cara);
-char		*get_next_line(int fd);
-char        *ft_strdup(char *cara);
-
+char	*get_next_line(int fd);
+char	*ft_strjoin(char *c1, char *c2);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(char *cara);
+int		len_of_line(char *stc_arr);
+char    *cpy_bfr_nl(char *stc_arr);
 
 #endif
