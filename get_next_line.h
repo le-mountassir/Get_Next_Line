@@ -5,31 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-mou <ahel-mou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 13:45:24 by ahel-mou          #+#    #+#             */
-/*   Updated: 2021/11/17 15:37:30 by ahel-mou         ###   ########.fr       */
+/*   Created: 2021/11/18 13:56:20 by ahel-mou          #+#    #+#             */
+/*   Updated: 2021/11/18 13:56:20 by ahel-mou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef GET_NEXT_LINE
-#define GET_NEXT_LINE
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include <unistd.h>
+# include <stdlib.h>
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
+# define BUFFER_SIZE 42
 #endif
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-//open
-#include <sys/stat.h>
-#include <fcntl.h>
+// typedef struct get_next_line
+// {
+// 	char		*tmp;
+// 	char		*tmp2;
+// 	char		*cur_line;
+// 	char		*buff;
+// }   storage_unit;
 
 char	*get_next_line(int fd);
-char	*ft_strjoin(char *c1, char *c2);
-char	*ft_strchr(const char *s, int c);
-size_t	ft_strlen(char *cara);
-int		len_of_line(char *stc_arr);
-char    *cpy_bfr_nl(char *stc_arr);
+size_t  ft_strlen(const char *str);
+char    *ft_substr(char const *s, int star, size_t len);
+void    *ft_calloc(size_t count, size_t size);
+char    *ft_strjoin(char const *s1, char const *s2);
 
 #endif
