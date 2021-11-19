@@ -5,72 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-mou <ahel-mou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 13:45:34 by ahel-mou          #+#    #+#             */
-/*   Updated: 2021/11/17 16:09:10 by ahel-mou         ###   ########.fr       */
+/*   Created: 2021/11/18 13:56:24 by ahel-mou          #+#    #+#             */
+/*   Updated: 2021/11/18 13:56:24 by ahel-mou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include"get_next_line.h"
 
-char	*locat_next_line(char *stc_arr)
+char	*buff_locater(int fd, char *stc_arr)
 {
-	if (!(ft_strchr(stc_arr, '\n')))
+	char *buff;
+
+	if (stc_arr != 0 && ft_strlen(stc_arr) != 0)
 	{
-		while (*stc_arr)
-			stc_arr++;
-		stc_arr++;
-	} 
+		buff = ft_substr(stc_arr, 0, ft_strlen(stc_arr) + 1);
+		free(stc_arr);
+	}
 	else
-		stc_arr = ft_strchr(stc_arr, '\n') + 1;
-	return (stc_arr);
+	{
+		free(stc_arr);
+		buff = ft_calloc(1, BUFFER_SIZE + 1);
+		read(fd, buff, BUFFER_SIZE);
+	}
+	return (buff);
 }
 
-char	*join_strings(int fd, int bytes_read, char *stc_arr, char *buf)
-{	
-	if (!stc_arr)
-	{
-		stc_arr = (char *)malloc(1 * sizeof(char));
-		*stc_arr = '\0';
-	}
-	if (bytes_read)
-		stc_arr = ft_strjoin(stc_arr, buf);
-	while (!(ft_strchr(stc_arr, '\n')) && bytes_read == BUFFER_SIZE)
-	{
-		bytes_read = read(fd, buf, BUFFER_SIZE);
-		stc_arr = ft_strjoin(stc_arr, buf);
-	}
-	return (stc_arr);
-}
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	char			buf[BUFFER_SIZE + 1];
-	static char		*stc_arr;
-	char			*line;
-	size_t			bytes_read;
+	static char	*stc_arr;
+	char		*buff;
+	char		*cur_line;
+	char		*tmp;
+	char		*tmp2;
+	size_t		stc_len;
+	size_t		i;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
-		return (NULL);
-	bytes_read = read(fd, buf, BUFFER_SIZE);
-	buf[BUFFER_SIZE] = '\0';
-	if (bytes_read == 0 && !(*stc_arr))
-		return (NULL);
-	stc_arr = join_strings(fd, bytes_read, stc_arr, buf);
-	line = cpy_bfr_nl(stc_arr);
-	if (!line)
-		return (NULL);
-	stc_arr = locat_next_line(stc_arr);
-	return (line);
-}
-
-int main()
-{
-	int fd;
-	int i = 5;
-	fd = open("get_next_line.h", O_RDONLY);
-	while (i > 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	stc_len = ft_strlen(stc_arr);
+	buff = buff_locater(fd, stc_arr);
+	stc_len = ft_strlen(buff);
+	if (stc_len == 0)
 	{
-		printf ("\n%s", get_next_line(fd));
-		i--;
+		free(buff);
+		return (0);
 	}
+	cur_line = ft_calloc(1, 1);
+	i = 0;
+	while (buff[i] != '\n')
+	{
+		if (i == stc_len - 1)
+		{
+			tmp = cur_line;
+			cur_line = ft_strjoin(tmp, buff);
+			free(tmp);
+			free(buff);
+			buff = ft_calloc(1, BUFFER_SIZE + 1);
+			read(fd, buff, BUFFER_SIZE);
+			stc_len = ft_strlen(buff);
+			if (stc_len == 0)
+				break ;
+			i = -1;
+		}
+		i++;
+	}
+	tmp2 = ft_substr(buff, 0, i + 1);
+	tmp = cur_line;
+	cur_line = ft_strjoin(tmp, tmp2);
+	free(tmp);
+	free(tmp2);
+	if (BUFFER_SIZE > 1)
+		stc_arr = ft_substr(buff, i + 1, stc_len - i);
+	free(buff);
+	return (cur_line);
 }
