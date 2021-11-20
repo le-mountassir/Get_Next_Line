@@ -24,7 +24,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-typedef struct gnl
+typedef struct dipo_dial_variablat
 {
 	int		fd;
 	size_t	buf_len;
