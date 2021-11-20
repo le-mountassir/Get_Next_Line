@@ -3,31 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahel-mou <ahel-mou@student.1337.ma>        +#+  +:+       +#+         #
+#    By: ahel-mou <ahel-mou@student-1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/17 16:28:56 by ahel-mou          #+#    #+#              #
-#    Updated: 2021/11/17 16:54:14 by ahel-mou         ###   ########.fr        #
+#    Updated: 2021/11/20 11:43:11 by ahel-mou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = get_next_line.a
-
-SRC_F = get_next_line_utils.c
+SRC_F = get_next_line.c get_next_line_utils.c
 
 FLAGS = -Wall -Werror -Wextra
 
-OBJ_F = $(SRC_F:.c=.o)
+main:
+	gcc $(FLAGS) main.c $(SRC_F)
+	clear
+	./a.out
 
-all = $(NAME)
+rm:
+	rm -f ./a.out
 
-$(NAME): $(OBJ_F)
-	ar rcs $(NAME) $(OBJ_F)
-
-%.o:%.c
-	cc $(FLAGS) -c $<
-clean:
-	find . -name "*.o" -delete
-	rm -f $(NAME)
-
-re:clean all
-.PHONY: clean, all, re
+.PHONY: crm, main
