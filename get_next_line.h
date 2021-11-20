@@ -27,7 +27,7 @@
 typedef struct gnl
 {
 	int		fd;
-	size_t	i;
+	size_t	buf_len;
 	size_t	j;
 	char	*tmp;
 	char	*tmp2;
