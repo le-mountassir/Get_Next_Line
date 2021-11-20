@@ -12,7 +12,7 @@
 
 #include"get_next_line.h"
 
-void    read_or_continue(t_storage *unit_4, char **stc_arr)
+void    read_or_continue(storage *unit_4, char **stc_arr)
 {
     if (*stc_arr != 0 && ft_strlen(*stc_arr) != 0)
     {
@@ -30,7 +30,7 @@ void    read_or_continue(t_storage *unit_4, char **stc_arr)
     unit_4->buf_len = ft_strlen(unit_4->buff);
 }
 
-void    join_nd_free(t_storage *unit_3)
+void    join_nd_free(storage *unit_3)
 {
     unit_3->tmp = unit_3->cur_line;
     unit_3->cur_line = ft_strjoin(unit_3->tmp, unit_3->buff);
@@ -41,7 +41,7 @@ void    join_nd_free(t_storage *unit_3)
     unit_3->buf_len = ft_strlen(unit_3->buff);
 }
 
-char    *rt_cur_line(char **stc_arr, t_storage *unit_2)
+char    *rt_cur_line(char **stc_arr, storage *unit_2)
 {
     unit_2->tmp2 = ft_substr(unit_2->buff, 0, unit_2->j + 1);
     unit_2->tmp = unit_2->cur_line;
@@ -58,7 +58,7 @@ char    *rt_cur_line(char **stc_arr, t_storage *unit_2)
 char    *get_next_line(int fd)
 {
     static char        *stc_arr;
-    t_storage        unit_1;
+    storage        unit_1;
 
     if (fd < 0 || BUFFER_SIZE <= 0)
         return (0);
