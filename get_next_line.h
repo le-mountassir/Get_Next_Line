@@ -33,7 +33,7 @@ typedef struct dipo_dial_variablat
 	char	*tmp2;
 	char	*buff;
 	char	*cur_line;
-}			t_storage;
+}			storage;
 
 size_t		ft_strlen(const char *cara);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
