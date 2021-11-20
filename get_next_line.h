@@ -10,28 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# include <unistd.h>
-# include <stdlib.h>
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 42
 #endif
 
-// typedef struct get_next_line
-// {
-// 	char		*tmp;
-// 	char		*tmp2;
-// 	char		*cur_line;
-// 	char		*buff;
-// }   storage_unit;
 
-char	*get_next_line(int fd);
-size_t  ft_strlen(const char *str);
-char    *ft_substr(char const *s, int star, size_t len);
-void    *ft_calloc(size_t count, size_t size);
-char    *ft_strjoin(char const *s1, char const *s2);
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
+
+typedef struct gnl
+{
+	int		fd;
+	size_t	i;
+	size_t	j;
+	char	*tmp;
+	char	*tmp2;
+	char	*buff;
+	char	*cur_line;
+}			t_storage;
+
+size_t		ft_strlen(const char *cara);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
+char		*ft_substr(char const *str, unsigned int start, size_t len);
+char		*ft_strjoin(char const *s1, char const *s2);
+void		*ft_calloc(size_t count, size_t size);
+char		*get_next_line(int fd);
 
 #endif
