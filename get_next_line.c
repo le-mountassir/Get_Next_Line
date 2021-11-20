@@ -12,71 +12,71 @@
 
 #include"get_next_line.h"
 
-char	*buff_locater(int fd, char *stc_arr)
+size_t	read_or_continue(t_storage *unit_4, char **stc_arr)
 {
-	char *buff;
-
-	if (stc_arr != 0 && ft_strlen(stc_arr) != 0)
+	if (*stc_arr != 0 && ft_strlen(*stc_arr) != 0)
 	{
-		buff = ft_substr(stc_arr, 0, ft_strlen(stc_arr) + 1);
-		free(stc_arr);
+		unit_4->buff = ft_substr(*stc_arr, 0, ft_strlen(*stc_arr) + 1);
+		free(*stc_arr);
 	}
 	else
 	{
-		free(stc_arr);
-		buff = ft_calloc(1, BUFFER_SIZE + 1);
-		read(fd, buff, BUFFER_SIZE);
+		free(*stc_arr);
+		unit_4->buff = ft_calloc(1, BUFFER_SIZE + 1);
+		read(unit_4->fd, unit_4->buff, BUFFER_SIZE);
 	}
-	return (buff);
+	if (ft_strlen(unit_4->buff) == 0)
+		free(unit_4->buff);
+	return (ft_strlen(unit_4->buff));
 }
 
+size_t	join_nd_free(t_storage *unit_3)
+{
+	unit_3->tmp = unit_3->cur_line;
+	unit_3->cur_line = ft_strjoin(unit_3->tmp, unit_3->buff);
+	free(unit_3->tmp);
+	free(unit_3->buff);
+	unit_3->buff = (char *)ft_calloc(1, (BUFFER_SIZE + 1));
+	read(unit_3->fd, unit_3->buff, BUFFER_SIZE);
+	return (ft_strlen(unit_3->buff));
+}
+
+char	*curr_line(char **stc_arr, t_storage *unit_2)
+{
+	unit_2->tmp2 = ft_substr(unit_2->buff, 0, unit_2->j + 1);
+	unit_2->tmp = unit_2->cur_line;
+	unit_2->cur_line = ft_strjoin(unit_2->tmp, unit_2->tmp2);
+	free(unit_2->tmp);
+	free(unit_2->tmp2);
+	if (BUFFER_SIZE > 1)
+		*stc_arr = ft_substr(unit_2->buff, unit_2->j + 1, (unit_2->i - unit_2->j + 1));
+	free(unit_2->buff);
+	return (unit_2->cur_line);
+}
 
 char	*get_next_line(int fd)
 {
-	static char	*stc_arr;
-	char		*buff;
-	char		*cur_line;
-	char		*tmp;
-	char		*tmp2;
-	size_t		stc_len;
-	size_t		i;
+	static char		*stc_arr;
+	t_storage		unit_1;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	stc_len = ft_strlen(stc_arr);
-	buff = buff_locater(fd, stc_arr);
-	stc_len = ft_strlen(buff);
-	if (stc_len == 0)
-	{
-		free(buff);
+	unit_1.fd = fd;
+	unit_1.i = read_or_continue(&unit_1, &stc_arr);
+	if (unit_1.i == 0)
 		return (0);
-	}
-	cur_line = ft_calloc(1, 1);
-	i = 0;
-	while (buff[i] != '\n')
+	unit_1.cur_line = ft_calloc(1, 1);
+	unit_1.j = 0;
+	while (unit_1.buff[unit_1.j] != '\n')
 	{
-		if (i == stc_len - 1)
+		if (unit_1.j == (unit_1.i - 1))
 		{
-			tmp = cur_line;
-			cur_line = ft_strjoin(tmp, buff);
-			free(tmp);
-			free(buff);
-			buff = ft_calloc(1, BUFFER_SIZE + 1);
-			read(fd, buff, BUFFER_SIZE);
-			stc_len = ft_strlen(buff);
-			if (stc_len == 0)
+			unit_1.i = join_nd_free(&unit_1);
+			if (unit_1.i == 0)
 				break ;
-			i = -1;
+			unit_1.j = -1;
 		}
-		i++;
+		unit_1.j++;
 	}
-	tmp2 = ft_substr(buff, 0, i + 1);
-	tmp = cur_line;
-	cur_line = ft_strjoin(tmp, tmp2);
-	free(tmp);
-	free(tmp2);
-	if (BUFFER_SIZE > 1)
-		stc_arr = ft_substr(buff, i + 1, stc_len - i);
-	free(buff);
-	return (cur_line);
+	return (curr_line(&stc_arr, &unit_1));
 }
