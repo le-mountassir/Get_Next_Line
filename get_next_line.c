@@ -49,7 +49,7 @@ char	*curr_line(char **stc_arr, t_storage *unit_2)
 	free(unit_2->tmp);
 	free(unit_2->tmp2);
 	if (BUFFER_SIZE > 1)
-		*stc_arr = ft_substr(unit_2->buff, unit_2->j + 1, (unit_2->i - unit_2->j + 1));
+		*stc_arr = ft_substr(unit_2->buff, unit_2->j + 1, (unit_2->buf_len - unit_2->j + 1));
 	free(unit_2->buff);
 	return (unit_2->cur_line);
 }
@@ -62,17 +62,17 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	unit_1.fd = fd;
-	unit_1.i = read_or_continue(&unit_1, &stc_arr);
-	if (unit_1.i == 0)
+	unit_1.buf_len = read_or_continue(&unit_1, &stc_arr);
+	if (unit_1.buf_len == 0)
 		return (0);
 	unit_1.cur_line = ft_calloc(1, 1);
 	unit_1.j = 0;
 	while (unit_1.buff[unit_1.j] != '\n')
 	{
-		if (unit_1.j == (unit_1.i - 1))
+		if (unit_1.j == (unit_1.buf_len - 1))
 		{
-			unit_1.i = join_nd_free(&unit_1);
-			if (unit_1.i == 0)
+			unit_1.buf_len = join_nd_free(&unit_1);
+			if (unit_1.buf_len == 0)
 				break ;
 			unit_1.j = -1;
 		}
