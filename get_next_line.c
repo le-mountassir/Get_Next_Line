@@ -47,7 +47,7 @@ void	check_if_1stcall(t_storage *unit_4, char **stc_arr)
 	}
 	else
 	{
-		if (*stc_arr)
+		if (ft_strlen(*stc_arr))
 			free(*stc_arr);
 		unit_4->buff = ft_calloc(1, BUFFER_SIZE + 1);
 		read(unit_4->fd, unit_4->buff, BUFFER_SIZE);
