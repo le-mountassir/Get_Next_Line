@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-mou <ahel-mou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ahel-mou <ahel-mou@student-1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:56:24 by ahel-mou          #+#    #+#             */
-/*   Updated: 2021/11/18 13:56:24 by ahel-mou         ###   ########.fr       */
+/*   Updated: 2021/11/24 07:25:26 by ahel-mou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,14 @@ char	*rt_cur_line(char **stc_arr, t_storage *unit_2)
 	if (BUFFER_SIZE > 1)
 		*stc_arr = ft_substr(unit_2->buff, unit_2->j + 1,
 				(unit_2->buf_len - unit_2->j + 1));
-	free(unit_2->buff);
+	if (!(ft_strlen(unit_2->buff)))
+	{
+		unit_2->buff = ft_calloc(1,1);
+		free(unit_2->buff);
+	}
 	return (unit_2->cur_line);
 }
+
 
 void	keep_joinin_nl(t_storage *unit_3)
 {
@@ -47,8 +52,7 @@ void	check_if_1stcall(t_storage *unit_4, char **stc_arr)
 	}
 	else
 	{
-		if (ft_strlen(*stc_arr))
-			free(*stc_arr);
+		free(*stc_arr);
 		unit_4->buff = ft_calloc(1, BUFFER_SIZE + 1);
 		read(unit_4->fd, unit_4->buff, BUFFER_SIZE);
 	}
@@ -65,6 +69,8 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	unit_1.fd = fd;
+	if (!(ft_strlen(stc_arr)))
+		stc_arr = ft_calloc(1, 1);
 	check_if_1stcall(&unit_1, &stc_arr);
 	if (unit_1.buf_len == 0)
 		return (0);
