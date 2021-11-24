@@ -29,6 +29,7 @@ typedef struct dipo_dial_variablat
 	size_t	j;
 	char	*tmp;
 	char	*tmp2;
+	int	*free_checker;
 	char	*buff;
 	char	*cur_line;
 }			t_storage;
