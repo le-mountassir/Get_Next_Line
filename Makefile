@@ -11,9 +11,9 @@
 # **************************************************************************** #
 
 SRC_F = main.c get_next_line.c get_next_line_utils.c
-FLAGS = -Wall -Werror -Wextra
+
 main:
-	gcc $(FLAGS) main.c $(SRC_F) -o main
+	gcc $(FLAGS) $(SRC_F) -o main
 	clear
 	./main
 clean:
