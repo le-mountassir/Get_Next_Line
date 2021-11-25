@@ -6,7 +6,7 @@
 /*   By: ahel-mou <ahel-mou@student-1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:56:24 by ahel-mou          #+#    #+#             */
-/*   Updated: 2021/11/24 07:25:26 by ahel-mou         ###   ########.fr       */
+/*   Updated: 2021/11/25 09:06:03 by ahel-mou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	check_if_1stcall(t_storage *unit_4, char **stc_arr)
 	}
 	else
 	{
-		free(*stc_arr);
 		unit_4->buff = ft_calloc(1, BUFFER_SIZE + 1);
 		read(unit_4->fd, unit_4->buff, BUFFER_SIZE);
 	}
