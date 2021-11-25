@@ -12,9 +12,12 @@
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
+
+// set the BUFFER_SIZE while compiling the code
+// -D BUUFER_SIZE INT
+// # ifndef BUFFER_SIZE
+// #  define BUFFER_SIZE 5
+// # endif
 
 # include <stdio.h>
 # include <string.h>
