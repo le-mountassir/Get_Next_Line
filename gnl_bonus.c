@@ -12,6 +12,18 @@
 
 #include "gnl_bonus.h"
 
+
+void	keep_joinin_nl(t_storage *unit_3)
+{
+	unit_3->tmp = unit_3->cur_line;
+	unit_3->cur_line = ft_strjoin(unit_3->tmp, unit_3->buff);
+	free(unit_3->tmp);
+	free(unit_3->buff);
+	unit_3->buff = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	read(unit_3->fd, unit_3->buff, BUFFER_SIZE);
+	unit_3->buf_len = ft_strlen(unit_3->buff);
+}
+
 void	check_if_1stcall(t_storage *unit_4, char **stc_arr)
 {
 	if (*stc_arr != 0 && ft_strlen(*stc_arr) != 0)
