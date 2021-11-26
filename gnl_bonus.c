@@ -12,6 +12,23 @@
 
 #include "gnl_bonus.h"
 
+char	*rt_cur_line(char **stc_arr, t_storage *unit_2)
+{
+	unit_2->tmp2 = ft_substr(unit_2->buff, 0, unit_2->j + 1);
+	unit_2->tmp = unit_2->cur_line;
+	unit_2->cur_line = ft_strjoin(unit_2->tmp, unit_2->tmp2);
+	free(unit_2->tmp);
+	free(unit_2->tmp2);
+	if (BUFFER_SIZE > 1)
+		*stc_arr = ft_substr(unit_2->buff, unit_2->j + 1,
+				(unit_2->buf_len - unit_2->j + 1));
+	if (!(ft_strlen(unit_2->buff)))
+	{
+		unit_2->buff = ft_calloc(1,1);
+		free(unit_2->buff);
+	}
+	return (unit_2->cur_line);
+}
 
 void	keep_joinin_nl(t_storage *unit_3)
 {
