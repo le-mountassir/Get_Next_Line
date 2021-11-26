@@ -12,6 +12,25 @@
 
 #include "gnl_bonus.h"
 
+void	check_if_1stcall(t_storage *unit_4, char **stc_arr)
+{
+	if (*stc_arr != 0 && ft_strlen(*stc_arr) != 0)
+	{
+		unit_4->buff = ft_calloc(ft_strlen(*stc_arr) + 1, sizeof(char));
+		ft_memcpy(unit_4->buff, *stc_arr, ft_strlen(*stc_arr) + 1);
+		free(*stc_arr);
+	}
+	else
+	{
+		free(*stc_arr);
+		unit_4->buff = ft_calloc(1, BUFFER_SIZE + 1);
+		read(unit_4->fd, unit_4->buff, BUFFER_SIZE);
+	}
+	if (ft_strlen(unit_4->buff) == 0)
+		free(unit_4->buff);
+	unit_4->buf_len = ft_strlen(unit_4->buff);
+}
+
 char	*get_next_line(int fd)
 {
 	static char		*stc_arr[69024];
